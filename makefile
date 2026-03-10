@@ -1,3 +1,5 @@
+.PHONY: tab
+
 PROTO_DIR=proto
 
 tab:

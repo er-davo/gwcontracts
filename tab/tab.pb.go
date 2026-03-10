@@ -531,13 +531,14 @@ const file_tab_proto_rawDesc = "" +
 	"\n" +
 	"name_query\x18\x01 \x01(\tR\tnameQuery\"5\n" +
 	"\x12SearchTabsResponse\x12\x1f\n" +
-	"\x04tabs\x18\x01 \x03(\v2\v.tab.RawTabR\x04tabs2\xf8\x01\n" +
+	"\x04tabs\x18\x01 \x03(\v2\v.tab.RawTabR\x04tabs2\xf2\x01\n" +
 	"\n" +
 	"TabService\x126\n" +
 	"\aSaveTab\x12\x13.tab.SaveTabRequest\x1a\x16.tab.CreateTabResponse\x12:\n" +
 	"\tDeleteTab\x12\x15.tab.DeleteTabRequest\x1a\x16.tab.DeleteTabResponse\x121\n" +
-	"\x06GetTab\x12\x12.tab.GetTabRequest\x1a\x13.tab.GetTabResponse\x12C\n" +
-	"\x10SearchTabsByName\x12\x16.tab.SearchTabsRequest\x1a\x17.tab.SearchTabsResponseB\x06Z\x04/tabb\x06proto3"
+	"\x06GetTab\x12\x12.tab.GetTabRequest\x1a\x13.tab.GetTabResponse\x12=\n" +
+	"\n" +
+	"SearchTabs\x12\x16.tab.SearchTabsRequest\x1a\x17.tab.SearchTabsResponseB\x06Z\x04/tabb\x06proto3"
 
 var (
 	file_tab_proto_rawDescOnce sync.Once
@@ -570,11 +571,11 @@ var file_tab_proto_depIdxs = []int32{
 	2, // 2: tab.TabService.SaveTab:input_type -> tab.SaveTabRequest
 	4, // 3: tab.TabService.DeleteTab:input_type -> tab.DeleteTabRequest
 	6, // 4: tab.TabService.GetTab:input_type -> tab.GetTabRequest
-	8, // 5: tab.TabService.SearchTabsByName:input_type -> tab.SearchTabsRequest
+	8, // 5: tab.TabService.SearchTabs:input_type -> tab.SearchTabsRequest
 	3, // 6: tab.TabService.SaveTab:output_type -> tab.CreateTabResponse
 	5, // 7: tab.TabService.DeleteTab:output_type -> tab.DeleteTabResponse
 	7, // 8: tab.TabService.GetTab:output_type -> tab.GetTabResponse
-	9, // 9: tab.TabService.SearchTabsByName:output_type -> tab.SearchTabsResponse
+	9, // 9: tab.TabService.SearchTabs:output_type -> tab.SearchTabsResponse
 	6, // [6:10] is the sub-list for method output_type
 	2, // [2:6] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

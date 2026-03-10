@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TabService_SaveTab_FullMethodName          = "/tab.TabService/SaveTab"
-	TabService_DeleteTab_FullMethodName        = "/tab.TabService/DeleteTab"
-	TabService_GetTab_FullMethodName           = "/tab.TabService/GetTab"
-	TabService_SearchTabsByName_FullMethodName = "/tab.TabService/SearchTabsByName"
+	TabService_SaveTab_FullMethodName    = "/tab.TabService/SaveTab"
+	TabService_DeleteTab_FullMethodName  = "/tab.TabService/DeleteTab"
+	TabService_GetTab_FullMethodName     = "/tab.TabService/GetTab"
+	TabService_SearchTabs_FullMethodName = "/tab.TabService/SearchTabs"
 )
 
 // TabServiceClient is the client API for TabService service.
@@ -37,8 +37,8 @@ type TabServiceClient interface {
 	DeleteTab(ctx context.Context, in *DeleteTabRequest, opts ...grpc.CallOption) (*DeleteTabResponse, error)
 	// GetTab gets a tab from the database with presigned url to file in storage
 	GetTab(ctx context.Context, in *GetTabRequest, opts ...grpc.CallOption) (*GetTabResponse, error)
-	// SearchTabsByName searches tabs by query and returns a list of tabs without presigned url
-	SearchTabsByName(ctx context.Context, in *SearchTabsRequest, opts ...grpc.CallOption) (*SearchTabsResponse, error)
+	// SearchTabs searches tabs by query and returns a list of tabs without presigned url
+	SearchTabs(ctx context.Context, in *SearchTabsRequest, opts ...grpc.CallOption) (*SearchTabsResponse, error)
 }
 
 type tabServiceClient struct {
@@ -79,10 +79,10 @@ func (c *tabServiceClient) GetTab(ctx context.Context, in *GetTabRequest, opts .
 	return out, nil
 }
 
-func (c *tabServiceClient) SearchTabsByName(ctx context.Context, in *SearchTabsRequest, opts ...grpc.CallOption) (*SearchTabsResponse, error) {
+func (c *tabServiceClient) SearchTabs(ctx context.Context, in *SearchTabsRequest, opts ...grpc.CallOption) (*SearchTabsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SearchTabsResponse)
-	err := c.cc.Invoke(ctx, TabService_SearchTabsByName_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, TabService_SearchTabs_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,8 +101,8 @@ type TabServiceServer interface {
 	DeleteTab(context.Context, *DeleteTabRequest) (*DeleteTabResponse, error)
 	// GetTab gets a tab from the database with presigned url to file in storage
 	GetTab(context.Context, *GetTabRequest) (*GetTabResponse, error)
-	// SearchTabsByName searches tabs by query and returns a list of tabs without presigned url
-	SearchTabsByName(context.Context, *SearchTabsRequest) (*SearchTabsResponse, error)
+	// SearchTabs searches tabs by query and returns a list of tabs without presigned url
+	SearchTabs(context.Context, *SearchTabsRequest) (*SearchTabsResponse, error)
 	mustEmbedUnimplementedTabServiceServer()
 }
 
@@ -122,8 +122,8 @@ func (UnimplementedTabServiceServer) DeleteTab(context.Context, *DeleteTabReques
 func (UnimplementedTabServiceServer) GetTab(context.Context, *GetTabRequest) (*GetTabResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTab not implemented")
 }
-func (UnimplementedTabServiceServer) SearchTabsByName(context.Context, *SearchTabsRequest) (*SearchTabsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchTabsByName not implemented")
+func (UnimplementedTabServiceServer) SearchTabs(context.Context, *SearchTabsRequest) (*SearchTabsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchTabs not implemented")
 }
 func (UnimplementedTabServiceServer) mustEmbedUnimplementedTabServiceServer() {}
 func (UnimplementedTabServiceServer) testEmbeddedByValue()                    {}
@@ -200,20 +200,20 @@ func _TabService_GetTab_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TabService_SearchTabsByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TabService_SearchTabs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchTabsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TabServiceServer).SearchTabsByName(ctx, in)
+		return srv.(TabServiceServer).SearchTabs(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TabService_SearchTabsByName_FullMethodName,
+		FullMethod: TabService_SearchTabs_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TabServiceServer).SearchTabsByName(ctx, req.(*SearchTabsRequest))
+		return srv.(TabServiceServer).SearchTabs(ctx, req.(*SearchTabsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -238,8 +238,8 @@ var TabService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TabService_GetTab_Handler,
 		},
 		{
-			MethodName: "SearchTabsByName",
-			Handler:    _TabService_SearchTabsByName_Handler,
+			MethodName: "SearchTabs",
+			Handler:    _TabService_SearchTabs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

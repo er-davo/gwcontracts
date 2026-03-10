@@ -12,8 +12,8 @@ service TabService {
     rpc DeleteTab(DeleteTabRequest) returns (DeleteTabResponse);
     // GetTab gets a tab from the database with presigned url to file in storage
     rpc GetTab(GetTabRequest) returns (GetTabResponse);
-    // SearchTabsByName searches tabs by query and returns a list of tabs without presigned url
-    rpc SearchTabsByName(SearchTabsRequest) returns (SearchTabsResponse);
+    // SearchTabs searches tabs by query and returns a list of tabs without presigned url
+    rpc SearchTabs(SearchTabsRequest) returns (SearchTabsResponse);
 }
 
 message RawTab {
