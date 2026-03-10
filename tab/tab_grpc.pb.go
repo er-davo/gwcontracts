@@ -32,7 +32,7 @@ const (
 // Tab service
 type TabServiceClient interface {
 	// SaveTab saves a tab to the database (when file already exists in storage)
-	SaveTab(ctx context.Context, in *SaveTabRequest, opts ...grpc.CallOption) (*CreateTabResponse, error)
+	SaveTab(ctx context.Context, in *SaveTabRequest, opts ...grpc.CallOption) (*SaveTabResponse, error)
 	// DeleteTab deletes a tab from the database and storage
 	DeleteTab(ctx context.Context, in *DeleteTabRequest, opts ...grpc.CallOption) (*DeleteTabResponse, error)
 	// GetTab gets a tab from the database with presigned url to file in storage
@@ -49,9 +49,9 @@ func NewTabServiceClient(cc grpc.ClientConnInterface) TabServiceClient {
 	return &tabServiceClient{cc}
 }
 
-func (c *tabServiceClient) SaveTab(ctx context.Context, in *SaveTabRequest, opts ...grpc.CallOption) (*CreateTabResponse, error) {
+func (c *tabServiceClient) SaveTab(ctx context.Context, in *SaveTabRequest, opts ...grpc.CallOption) (*SaveTabResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateTabResponse)
+	out := new(SaveTabResponse)
 	err := c.cc.Invoke(ctx, TabService_SaveTab_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -96,7 +96,7 @@ func (c *tabServiceClient) SearchTabs(ctx context.Context, in *SearchTabsRequest
 // Tab service
 type TabServiceServer interface {
 	// SaveTab saves a tab to the database (when file already exists in storage)
-	SaveTab(context.Context, *SaveTabRequest) (*CreateTabResponse, error)
+	SaveTab(context.Context, *SaveTabRequest) (*SaveTabResponse, error)
 	// DeleteTab deletes a tab from the database and storage
 	DeleteTab(context.Context, *DeleteTabRequest) (*DeleteTabResponse, error)
 	// GetTab gets a tab from the database with presigned url to file in storage
@@ -113,7 +113,7 @@ type TabServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTabServiceServer struct{}
 
-func (UnimplementedTabServiceServer) SaveTab(context.Context, *SaveTabRequest) (*CreateTabResponse, error) {
+func (UnimplementedTabServiceServer) SaveTab(context.Context, *SaveTabRequest) (*SaveTabResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveTab not implemented")
 }
 func (UnimplementedTabServiceServer) DeleteTab(context.Context, *DeleteTabRequest) (*DeleteTabResponse, error) {

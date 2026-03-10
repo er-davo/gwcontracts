@@ -7,7 +7,7 @@ option go_package = "/tab";
 // Tab service 
 service TabService {
     // SaveTab saves a tab to the database (when file already exists in storage)
-    rpc SaveTab(SaveTabRequest) returns (CreateTabResponse);
+    rpc SaveTab(SaveTabRequest) returns (SaveTabResponse);
     // DeleteTab deletes a tab from the database and storage
     rpc DeleteTab(DeleteTabRequest) returns (DeleteTabResponse);
     // GetTab gets a tab from the database with presigned url to file in storage
@@ -34,7 +34,7 @@ message SaveTabRequest {
     string path = 2;
 }
 
-message CreateTabResponse {
+message SaveTabResponse {
     string id = 1;
 }
 

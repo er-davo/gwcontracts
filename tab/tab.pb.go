@@ -201,27 +201,27 @@ func (x *SaveTabRequest) GetPath() string {
 	return ""
 }
 
-type CreateTabResponse struct {
+type SaveTabResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateTabResponse) Reset() {
-	*x = CreateTabResponse{}
+func (x *SaveTabResponse) Reset() {
+	*x = SaveTabResponse{}
 	mi := &file_tab_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateTabResponse) String() string {
+func (x *SaveTabResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateTabResponse) ProtoMessage() {}
+func (*SaveTabResponse) ProtoMessage() {}
 
-func (x *CreateTabResponse) ProtoReflect() protoreflect.Message {
+func (x *SaveTabResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_tab_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -233,12 +233,12 @@ func (x *CreateTabResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateTabResponse.ProtoReflect.Descriptor instead.
-func (*CreateTabResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use SaveTabResponse.ProtoReflect.Descriptor instead.
+func (*SaveTabResponse) Descriptor() ([]byte, []int) {
 	return file_tab_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *CreateTabResponse) GetId() string {
+func (x *SaveTabResponse) GetId() string {
 	if x != nil {
 		return x.Id
 	}
@@ -517,8 +517,8 @@ const file_tab_proto_rawDesc = "" +
 	"\rpresigned_url\x18\x04 \x01(\tR\fpresignedUrl\"8\n" +
 	"\x0eSaveTabRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
-	"\x04path\x18\x02 \x01(\tR\x04path\"#\n" +
-	"\x11CreateTabResponse\x12\x0e\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\"!\n" +
+	"\x0fSaveTabResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"\"\n" +
 	"\x10DeleteTabRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"\x13\n" +
@@ -531,10 +531,10 @@ const file_tab_proto_rawDesc = "" +
 	"\n" +
 	"name_query\x18\x01 \x01(\tR\tnameQuery\"5\n" +
 	"\x12SearchTabsResponse\x12\x1f\n" +
-	"\x04tabs\x18\x01 \x03(\v2\v.tab.RawTabR\x04tabs2\xf2\x01\n" +
+	"\x04tabs\x18\x01 \x03(\v2\v.tab.RawTabR\x04tabs2\xf0\x01\n" +
 	"\n" +
-	"TabService\x126\n" +
-	"\aSaveTab\x12\x13.tab.SaveTabRequest\x1a\x16.tab.CreateTabResponse\x12:\n" +
+	"TabService\x124\n" +
+	"\aSaveTab\x12\x13.tab.SaveTabRequest\x1a\x14.tab.SaveTabResponse\x12:\n" +
 	"\tDeleteTab\x12\x15.tab.DeleteTabRequest\x1a\x16.tab.DeleteTabResponse\x121\n" +
 	"\x06GetTab\x12\x12.tab.GetTabRequest\x1a\x13.tab.GetTabResponse\x12=\n" +
 	"\n" +
@@ -557,7 +557,7 @@ var file_tab_proto_goTypes = []any{
 	(*RawTab)(nil),             // 0: tab.RawTab
 	(*Tab)(nil),                // 1: tab.Tab
 	(*SaveTabRequest)(nil),     // 2: tab.SaveTabRequest
-	(*CreateTabResponse)(nil),  // 3: tab.CreateTabResponse
+	(*SaveTabResponse)(nil),    // 3: tab.SaveTabResponse
 	(*DeleteTabRequest)(nil),   // 4: tab.DeleteTabRequest
 	(*DeleteTabResponse)(nil),  // 5: tab.DeleteTabResponse
 	(*GetTabRequest)(nil),      // 6: tab.GetTabRequest
@@ -572,7 +572,7 @@ var file_tab_proto_depIdxs = []int32{
 	4, // 3: tab.TabService.DeleteTab:input_type -> tab.DeleteTabRequest
 	6, // 4: tab.TabService.GetTab:input_type -> tab.GetTabRequest
 	8, // 5: tab.TabService.SearchTabs:input_type -> tab.SearchTabsRequest
-	3, // 6: tab.TabService.SaveTab:output_type -> tab.CreateTabResponse
+	3, // 6: tab.TabService.SaveTab:output_type -> tab.SaveTabResponse
 	5, // 7: tab.TabService.DeleteTab:output_type -> tab.DeleteTabResponse
 	7, // 8: tab.TabService.GetTab:output_type -> tab.GetTabResponse
 	9, // 9: tab.TabService.SearchTabs:output_type -> tab.SearchTabsResponse
