@@ -416,6 +416,8 @@ func (x *GetTabResponse) GetTab() *Tab {
 type SearchTabsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	NameQuery     string                 `protobuf:"bytes,1,opt,name=name_query,json=nameQuery,proto3" json:"name_query,omitempty"`
+	Limit         uint64                 `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset        uint64                 `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -455,6 +457,20 @@ func (x *SearchTabsRequest) GetNameQuery() string {
 		return x.NameQuery
 	}
 	return ""
+}
+
+func (x *SearchTabsRequest) GetLimit() uint64 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+func (x *SearchTabsRequest) GetOffset() uint64 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
 }
 
 type SearchTabsResponse struct {
@@ -526,10 +542,12 @@ const file_tab_proto_rawDesc = "" +
 	"\rGetTabRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\",\n" +
 	"\x0eGetTabResponse\x12\x1a\n" +
-	"\x03tab\x18\x01 \x01(\v2\b.tab.TabR\x03tab\"2\n" +
+	"\x03tab\x18\x01 \x01(\v2\b.tab.TabR\x03tab\"`\n" +
 	"\x11SearchTabsRequest\x12\x1d\n" +
 	"\n" +
-	"name_query\x18\x01 \x01(\tR\tnameQuery\"5\n" +
+	"name_query\x18\x01 \x01(\tR\tnameQuery\x12\x14\n" +
+	"\x05limit\x18\x02 \x01(\x04R\x05limit\x12\x16\n" +
+	"\x06offset\x18\x03 \x01(\x04R\x06offset\"5\n" +
 	"\x12SearchTabsResponse\x12\x1f\n" +
 	"\x04tabs\x18\x01 \x03(\v2\v.tab.RawTabR\x04tabs2\xf0\x01\n" +
 	"\n" +
