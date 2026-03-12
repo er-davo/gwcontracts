@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package audio_sep;
+
+option go_package = "/audiosep";
+
+// AudioSepTaskService is the service for audio separation tasks.
+service AudioSepTaskService {
+    // PostAudioSepTask posts an audio separation task.
+    rpc PostAudioSepTask(PostAudioSepTaskRequest) returns (PostAudioSepTaskResponse);
+    // GetAudioSepTask gets an audio separation task.
+    rpc GetAudioSepTask(GetAudioSepTaskRequest) returns (GetAudioSepTaskResponse);
+    // GetAudioSepTaskWithStemsURLs gets an audio separation task with stems URLs.
+    rpc GetAudioSepTaskWithStemsURLs(GetAudioSepTaskWithStemsURLsRequest) returns (GetAudioSepTaskWithStemsURLsResponse);
+    // UploadStemsURLs returns URLs for uploads stems.
+    rpc UploadStemsURLs(UploadStemsURLsRequest) returns (UploadStemsURLsResponse);
+    // TrySetProcessing tries to set the task as processing.
+    // TryUpdate tries to update the task.
+    rpc TryUpdate(TryUpdateRequest) returns (TryUpdateResponse);
+}
+
+enum Status {
+    CREATED = 0;
+    PENDING = 1;
+    PROCESSING = 2;
+    DONE = 3;
+    FAILED = 4;
+}
+
+message AudioSepTask {
+    string id = 1;
+
+    Status status = 2;
+
+    string input_audio_name = 3;
+    string separated_dir_name = 4;
+
+    optional string error_message = 5;
+}
+
+message PostAudioSepTaskRequest {
+    string file_name = 1;
+    bytes data = 2;
+    int64 size = 3;
+}
+
+message PostAudioSepTaskResponse {
+    AudioSepTask task = 1;
+}
+
+message GetAudioSepTaskRequest {
+    string id = 1;
+}
+
+message GetAudioSepTaskResponse {
+    AudioSepTask task = 1;
+}
+
+message GetAudioSepTaskWithStemsURLsRequest {
+    string id = 1;
+}
+
+message GetAudioSepTaskWithStemsURLsResponse {
+    AudioSepTask task = 1;
+    map<string, string> stems_urls = 2;
+}
+
+message UploadStemsURLsRequest {
+    string id = 1;
+    repeated string stems_names = 2;
+}
+
+message UploadStemsURLsResponse {
+    map<string, string> stems_upload_urls = 1;
+}
+
+message TryUpdateRequest {
+    string id = 1;
+    Status status_from = 2;
+    Status status_to = 3;
+    oneof payload {
+        ProcessingData processing_data = 4;
+        DoneData done_data = 5;
+        ErrorData error_data = 6;
+    }
+}
+
+message ProcessingData {
+
+}
+
+message DoneData {
+    string separated_dir_name = 1;
+}
+
+message ErrorData {
+    string error_message = 1;
+}
+
+message TryUpdateResponse {
+    bool success = 1;
+}
