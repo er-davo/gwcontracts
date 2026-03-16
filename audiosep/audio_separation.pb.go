@@ -355,7 +355,8 @@ func (x *GetAudioSepTaskResponse) GetTask() *AudioSepTask {
 type UploadStemsURLsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	StemsNames    []string               `protobuf:"bytes,2,rep,name=stems_names,json=stemsNames,proto3" json:"stems_names,omitempty"`
+	Bucket        string                 `protobuf:"bytes,2,opt,name=bucket,proto3" json:"bucket,omitempty"`
+	StemsNames    []string               `protobuf:"bytes,3,rep,name=stems_names,json=stemsNames,proto3" json:"stems_names,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -393,6 +394,13 @@ func (*UploadStemsURLsRequest) Descriptor() ([]byte, []int) {
 func (x *UploadStemsURLsRequest) GetId() string {
 	if x != nil {
 		return x.Id
+	}
+	return ""
+}
+
+func (x *UploadStemsURLsRequest) GetBucket() string {
+	if x != nil {
+		return x.Bucket
 	}
 	return ""
 }
@@ -764,10 +772,11 @@ const file_audio_separation_proto_rawDesc = "" +
 	"\x16GetAudioSepTaskRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"F\n" +
 	"\x17GetAudioSepTaskResponse\x12+\n" +
-	"\x04task\x18\x01 \x01(\v2\x17.audio_sep.AudioSepTaskR\x04task\"I\n" +
+	"\x04task\x18\x01 \x01(\v2\x17.audio_sep.AudioSepTaskR\x04task\"a\n" +
 	"\x16UploadStemsURLsRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
-	"\vstems_names\x18\x02 \x03(\tR\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06bucket\x18\x02 \x01(\tR\x06bucket\x12\x1f\n" +
+	"\vstems_names\x18\x03 \x03(\tR\n" +
 	"stemsNames\"\xc2\x01\n" +
 	"\x17UploadStemsURLsResponse\x12c\n" +
 	"\x11stems_upload_urls\x18\x01 \x03(\v27.audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntryR\x0fstemsUploadUrls\x1aB\n" +

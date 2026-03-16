@@ -57,7 +57,8 @@ message GetAudioSepTaskResponse {
 
 message UploadStemsURLsRequest {
     string id = 1;
-    repeated string stems_names = 2;
+    string bucket = 2;
+    repeated string stems_names = 3;
 }
 
 message UploadStemsURLsResponse {
