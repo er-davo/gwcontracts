@@ -82,7 +82,8 @@ type AudioSepTask struct {
 	Status           Status                 `protobuf:"varint,2,opt,name=status,proto3,enum=audio_sep.Status" json:"status,omitempty"`
 	InputAudioName   string                 `protobuf:"bytes,3,opt,name=input_audio_name,json=inputAudioName,proto3" json:"input_audio_name,omitempty"`
 	SeparatedDirName string                 `protobuf:"bytes,4,opt,name=separated_dir_name,json=separatedDirName,proto3" json:"separated_dir_name,omitempty"`
-	ErrorMessage     *string                `protobuf:"bytes,5,opt,name=error_message,json=errorMessage,proto3,oneof" json:"error_message,omitempty"`
+	StemsUrls        map[string]string      `protobuf:"bytes,5,rep,name=stems_urls,json=stemsUrls,proto3" json:"stems_urls,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	ErrorMessage     *string                `protobuf:"bytes,6,opt,name=error_message,json=errorMessage,proto3,oneof" json:"error_message,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -143,6 +144,13 @@ func (x *AudioSepTask) GetSeparatedDirName() string {
 		return x.SeparatedDirName
 	}
 	return ""
+}
+
+func (x *AudioSepTask) GetStemsUrls() map[string]string {
+	if x != nil {
+		return x.StemsUrls
+	}
+	return nil
 }
 
 func (x *AudioSepTask) GetErrorMessage() string {
@@ -344,102 +352,6 @@ func (x *GetAudioSepTaskResponse) GetTask() *AudioSepTask {
 	return nil
 }
 
-type GetAudioSepTaskWithStemsURLsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetAudioSepTaskWithStemsURLsRequest) Reset() {
-	*x = GetAudioSepTaskWithStemsURLsRequest{}
-	mi := &file_audio_separation_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAudioSepTaskWithStemsURLsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAudioSepTaskWithStemsURLsRequest) ProtoMessage() {}
-
-func (x *GetAudioSepTaskWithStemsURLsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAudioSepTaskWithStemsURLsRequest.ProtoReflect.Descriptor instead.
-func (*GetAudioSepTaskWithStemsURLsRequest) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *GetAudioSepTaskWithStemsURLsRequest) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type GetAudioSepTaskWithStemsURLsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Task          *AudioSepTask          `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
-	StemsUrls     map[string]string      `protobuf:"bytes,2,rep,name=stems_urls,json=stemsUrls,proto3" json:"stems_urls,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetAudioSepTaskWithStemsURLsResponse) Reset() {
-	*x = GetAudioSepTaskWithStemsURLsResponse{}
-	mi := &file_audio_separation_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAudioSepTaskWithStemsURLsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAudioSepTaskWithStemsURLsResponse) ProtoMessage() {}
-
-func (x *GetAudioSepTaskWithStemsURLsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAudioSepTaskWithStemsURLsResponse.ProtoReflect.Descriptor instead.
-func (*GetAudioSepTaskWithStemsURLsResponse) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *GetAudioSepTaskWithStemsURLsResponse) GetTask() *AudioSepTask {
-	if x != nil {
-		return x.Task
-	}
-	return nil
-}
-
-func (x *GetAudioSepTaskWithStemsURLsResponse) GetStemsUrls() map[string]string {
-	if x != nil {
-		return x.StemsUrls
-	}
-	return nil
-}
-
 type UploadStemsURLsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -450,7 +362,7 @@ type UploadStemsURLsRequest struct {
 
 func (x *UploadStemsURLsRequest) Reset() {
 	*x = UploadStemsURLsRequest{}
-	mi := &file_audio_separation_proto_msgTypes[7]
+	mi := &file_audio_separation_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -462,7 +374,7 @@ func (x *UploadStemsURLsRequest) String() string {
 func (*UploadStemsURLsRequest) ProtoMessage() {}
 
 func (x *UploadStemsURLsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[7]
+	mi := &file_audio_separation_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -475,7 +387,7 @@ func (x *UploadStemsURLsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadStemsURLsRequest.ProtoReflect.Descriptor instead.
 func (*UploadStemsURLsRequest) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{7}
+	return file_audio_separation_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UploadStemsURLsRequest) GetId() string {
@@ -501,7 +413,7 @@ type UploadStemsURLsResponse struct {
 
 func (x *UploadStemsURLsResponse) Reset() {
 	*x = UploadStemsURLsResponse{}
-	mi := &file_audio_separation_proto_msgTypes[8]
+	mi := &file_audio_separation_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -513,7 +425,7 @@ func (x *UploadStemsURLsResponse) String() string {
 func (*UploadStemsURLsResponse) ProtoMessage() {}
 
 func (x *UploadStemsURLsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[8]
+	mi := &file_audio_separation_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -526,7 +438,7 @@ func (x *UploadStemsURLsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadStemsURLsResponse.ProtoReflect.Descriptor instead.
 func (*UploadStemsURLsResponse) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{8}
+	return file_audio_separation_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UploadStemsURLsResponse) GetStemsUploadUrls() map[string]string {
@@ -553,7 +465,7 @@ type TryUpdateRequest struct {
 
 func (x *TryUpdateRequest) Reset() {
 	*x = TryUpdateRequest{}
-	mi := &file_audio_separation_proto_msgTypes[9]
+	mi := &file_audio_separation_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -565,7 +477,7 @@ func (x *TryUpdateRequest) String() string {
 func (*TryUpdateRequest) ProtoMessage() {}
 
 func (x *TryUpdateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[9]
+	mi := &file_audio_separation_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -578,7 +490,7 @@ func (x *TryUpdateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TryUpdateRequest.ProtoReflect.Descriptor instead.
 func (*TryUpdateRequest) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{9}
+	return file_audio_separation_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *TryUpdateRequest) GetId() string {
@@ -666,7 +578,7 @@ type ProcessingData struct {
 
 func (x *ProcessingData) Reset() {
 	*x = ProcessingData{}
-	mi := &file_audio_separation_proto_msgTypes[10]
+	mi := &file_audio_separation_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -678,7 +590,7 @@ func (x *ProcessingData) String() string {
 func (*ProcessingData) ProtoMessage() {}
 
 func (x *ProcessingData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[10]
+	mi := &file_audio_separation_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -691,7 +603,7 @@ func (x *ProcessingData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProcessingData.ProtoReflect.Descriptor instead.
 func (*ProcessingData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{10}
+	return file_audio_separation_proto_rawDescGZIP(), []int{8}
 }
 
 type DoneData struct {
@@ -703,7 +615,7 @@ type DoneData struct {
 
 func (x *DoneData) Reset() {
 	*x = DoneData{}
-	mi := &file_audio_separation_proto_msgTypes[11]
+	mi := &file_audio_separation_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -715,7 +627,7 @@ func (x *DoneData) String() string {
 func (*DoneData) ProtoMessage() {}
 
 func (x *DoneData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[11]
+	mi := &file_audio_separation_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -728,7 +640,7 @@ func (x *DoneData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DoneData.ProtoReflect.Descriptor instead.
 func (*DoneData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{11}
+	return file_audio_separation_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DoneData) GetSeparatedDirName() string {
@@ -747,7 +659,7 @@ type ErrorData struct {
 
 func (x *ErrorData) Reset() {
 	*x = ErrorData{}
-	mi := &file_audio_separation_proto_msgTypes[12]
+	mi := &file_audio_separation_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -759,7 +671,7 @@ func (x *ErrorData) String() string {
 func (*ErrorData) ProtoMessage() {}
 
 func (x *ErrorData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[12]
+	mi := &file_audio_separation_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -772,7 +684,7 @@ func (x *ErrorData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorData.ProtoReflect.Descriptor instead.
 func (*ErrorData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{12}
+	return file_audio_separation_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ErrorData) GetErrorMessage() string {
@@ -791,7 +703,7 @@ type TryUpdateResponse struct {
 
 func (x *TryUpdateResponse) Reset() {
 	*x = TryUpdateResponse{}
-	mi := &file_audio_separation_proto_msgTypes[13]
+	mi := &file_audio_separation_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -803,7 +715,7 @@ func (x *TryUpdateResponse) String() string {
 func (*TryUpdateResponse) ProtoMessage() {}
 
 func (x *TryUpdateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[13]
+	mi := &file_audio_separation_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -816,7 +728,7 @@ func (x *TryUpdateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TryUpdateResponse.ProtoReflect.Descriptor instead.
 func (*TryUpdateResponse) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{13}
+	return file_audio_separation_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *TryUpdateResponse) GetSuccess() bool {
@@ -830,13 +742,18 @@ var File_audio_separation_proto protoreflect.FileDescriptor
 
 const file_audio_separation_proto_rawDesc = "" +
 	"\n" +
-	"\x16audio_separation.proto\x12\taudio_sep\"\xdd\x01\n" +
+	"\x16audio_separation.proto\x12\taudio_sep\"\xe2\x02\n" +
 	"\fAudioSepTask\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12)\n" +
 	"\x06status\x18\x02 \x01(\x0e2\x11.audio_sep.StatusR\x06status\x12(\n" +
 	"\x10input_audio_name\x18\x03 \x01(\tR\x0einputAudioName\x12,\n" +
-	"\x12separated_dir_name\x18\x04 \x01(\tR\x10separatedDirName\x12(\n" +
-	"\rerror_message\x18\x05 \x01(\tH\x00R\ferrorMessage\x88\x01\x01B\x10\n" +
+	"\x12separated_dir_name\x18\x04 \x01(\tR\x10separatedDirName\x12E\n" +
+	"\n" +
+	"stems_urls\x18\x05 \x03(\v2&.audio_sep.AudioSepTask.StemsUrlsEntryR\tstemsUrls\x12(\n" +
+	"\rerror_message\x18\x06 \x01(\tH\x00R\ferrorMessage\x88\x01\x01\x1a<\n" +
+	"\x0eStemsUrlsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01B\x10\n" +
 	"\x0e_error_message\"^\n" +
 	"\x17PostAudioSepTaskRequest\x12\x1b\n" +
 	"\tfile_name\x18\x01 \x01(\tR\bfileName\x12\x12\n" +
@@ -847,16 +764,7 @@ const file_audio_separation_proto_rawDesc = "" +
 	"\x16GetAudioSepTaskRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"F\n" +
 	"\x17GetAudioSepTaskResponse\x12+\n" +
-	"\x04task\x18\x01 \x01(\v2\x17.audio_sep.AudioSepTaskR\x04task\"5\n" +
-	"#GetAudioSepTaskWithStemsURLsRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"\xf0\x01\n" +
-	"$GetAudioSepTaskWithStemsURLsResponse\x12+\n" +
-	"\x04task\x18\x01 \x01(\v2\x17.audio_sep.AudioSepTaskR\x04task\x12]\n" +
-	"\n" +
-	"stems_urls\x18\x02 \x03(\v2>.audio_sep.GetAudioSepTaskWithStemsURLsResponse.StemsUrlsEntryR\tstemsUrls\x1a<\n" +
-	"\x0eStemsUrlsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"I\n" +
+	"\x04task\x18\x01 \x01(\v2\x17.audio_sep.AudioSepTaskR\x04task\"I\n" +
 	"\x16UploadStemsURLsRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
 	"\vstems_names\x18\x02 \x03(\tR\n" +
@@ -890,11 +798,10 @@ const file_audio_separation_proto_rawDesc = "" +
 	"PROCESSING\x10\x02\x12\b\n" +
 	"\x04DONE\x10\x03\x12\n" +
 	"\n" +
-	"\x06FAILED\x10\x042\xef\x03\n" +
+	"\x06FAILED\x10\x042\xee\x02\n" +
 	"\x13AudioSepTaskService\x12[\n" +
 	"\x10PostAudioSepTask\x12\".audio_sep.PostAudioSepTaskRequest\x1a#.audio_sep.PostAudioSepTaskResponse\x12X\n" +
-	"\x0fGetAudioSepTask\x12!.audio_sep.GetAudioSepTaskRequest\x1a\".audio_sep.GetAudioSepTaskResponse\x12\x7f\n" +
-	"\x1cGetAudioSepTaskWithStemsURLs\x12..audio_sep.GetAudioSepTaskWithStemsURLsRequest\x1a/.audio_sep.GetAudioSepTaskWithStemsURLsResponse\x12X\n" +
+	"\x0fGetAudioSepTask\x12!.audio_sep.GetAudioSepTaskRequest\x1a\".audio_sep.GetAudioSepTaskResponse\x12X\n" +
 	"\x0fUploadStemsURLs\x12!.audio_sep.UploadStemsURLsRequest\x1a\".audio_sep.UploadStemsURLsResponse\x12F\n" +
 	"\tTryUpdate\x12\x1b.audio_sep.TryUpdateRequest\x1a\x1c.audio_sep.TryUpdateResponseB\vZ\t/audiosepb\x06proto3"
 
@@ -911,53 +818,48 @@ func file_audio_separation_proto_rawDescGZIP() []byte {
 }
 
 var file_audio_separation_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_audio_separation_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_audio_separation_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_audio_separation_proto_goTypes = []any{
-	(Status)(0),                                  // 0: audio_sep.Status
-	(*AudioSepTask)(nil),                         // 1: audio_sep.AudioSepTask
-	(*PostAudioSepTaskRequest)(nil),              // 2: audio_sep.PostAudioSepTaskRequest
-	(*PostAudioSepTaskResponse)(nil),             // 3: audio_sep.PostAudioSepTaskResponse
-	(*GetAudioSepTaskRequest)(nil),               // 4: audio_sep.GetAudioSepTaskRequest
-	(*GetAudioSepTaskResponse)(nil),              // 5: audio_sep.GetAudioSepTaskResponse
-	(*GetAudioSepTaskWithStemsURLsRequest)(nil),  // 6: audio_sep.GetAudioSepTaskWithStemsURLsRequest
-	(*GetAudioSepTaskWithStemsURLsResponse)(nil), // 7: audio_sep.GetAudioSepTaskWithStemsURLsResponse
-	(*UploadStemsURLsRequest)(nil),               // 8: audio_sep.UploadStemsURLsRequest
-	(*UploadStemsURLsResponse)(nil),              // 9: audio_sep.UploadStemsURLsResponse
-	(*TryUpdateRequest)(nil),                     // 10: audio_sep.TryUpdateRequest
-	(*ProcessingData)(nil),                       // 11: audio_sep.ProcessingData
-	(*DoneData)(nil),                             // 12: audio_sep.DoneData
-	(*ErrorData)(nil),                            // 13: audio_sep.ErrorData
-	(*TryUpdateResponse)(nil),                    // 14: audio_sep.TryUpdateResponse
-	nil,                                          // 15: audio_sep.GetAudioSepTaskWithStemsURLsResponse.StemsUrlsEntry
-	nil,                                          // 16: audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
+	(Status)(0),                      // 0: audio_sep.Status
+	(*AudioSepTask)(nil),             // 1: audio_sep.AudioSepTask
+	(*PostAudioSepTaskRequest)(nil),  // 2: audio_sep.PostAudioSepTaskRequest
+	(*PostAudioSepTaskResponse)(nil), // 3: audio_sep.PostAudioSepTaskResponse
+	(*GetAudioSepTaskRequest)(nil),   // 4: audio_sep.GetAudioSepTaskRequest
+	(*GetAudioSepTaskResponse)(nil),  // 5: audio_sep.GetAudioSepTaskResponse
+	(*UploadStemsURLsRequest)(nil),   // 6: audio_sep.UploadStemsURLsRequest
+	(*UploadStemsURLsResponse)(nil),  // 7: audio_sep.UploadStemsURLsResponse
+	(*TryUpdateRequest)(nil),         // 8: audio_sep.TryUpdateRequest
+	(*ProcessingData)(nil),           // 9: audio_sep.ProcessingData
+	(*DoneData)(nil),                 // 10: audio_sep.DoneData
+	(*ErrorData)(nil),                // 11: audio_sep.ErrorData
+	(*TryUpdateResponse)(nil),        // 12: audio_sep.TryUpdateResponse
+	nil,                              // 13: audio_sep.AudioSepTask.StemsUrlsEntry
+	nil,                              // 14: audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
 }
 var file_audio_separation_proto_depIdxs = []int32{
 	0,  // 0: audio_sep.AudioSepTask.status:type_name -> audio_sep.Status
-	1,  // 1: audio_sep.PostAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
-	1,  // 2: audio_sep.GetAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
-	1,  // 3: audio_sep.GetAudioSepTaskWithStemsURLsResponse.task:type_name -> audio_sep.AudioSepTask
-	15, // 4: audio_sep.GetAudioSepTaskWithStemsURLsResponse.stems_urls:type_name -> audio_sep.GetAudioSepTaskWithStemsURLsResponse.StemsUrlsEntry
-	16, // 5: audio_sep.UploadStemsURLsResponse.stems_upload_urls:type_name -> audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
-	0,  // 6: audio_sep.TryUpdateRequest.status_from:type_name -> audio_sep.Status
-	0,  // 7: audio_sep.TryUpdateRequest.status_to:type_name -> audio_sep.Status
-	11, // 8: audio_sep.TryUpdateRequest.processing_data:type_name -> audio_sep.ProcessingData
-	12, // 9: audio_sep.TryUpdateRequest.done_data:type_name -> audio_sep.DoneData
-	13, // 10: audio_sep.TryUpdateRequest.error_data:type_name -> audio_sep.ErrorData
-	2,  // 11: audio_sep.AudioSepTaskService.PostAudioSepTask:input_type -> audio_sep.PostAudioSepTaskRequest
-	4,  // 12: audio_sep.AudioSepTaskService.GetAudioSepTask:input_type -> audio_sep.GetAudioSepTaskRequest
-	6,  // 13: audio_sep.AudioSepTaskService.GetAudioSepTaskWithStemsURLs:input_type -> audio_sep.GetAudioSepTaskWithStemsURLsRequest
-	8,  // 14: audio_sep.AudioSepTaskService.UploadStemsURLs:input_type -> audio_sep.UploadStemsURLsRequest
-	10, // 15: audio_sep.AudioSepTaskService.TryUpdate:input_type -> audio_sep.TryUpdateRequest
-	3,  // 16: audio_sep.AudioSepTaskService.PostAudioSepTask:output_type -> audio_sep.PostAudioSepTaskResponse
-	5,  // 17: audio_sep.AudioSepTaskService.GetAudioSepTask:output_type -> audio_sep.GetAudioSepTaskResponse
-	7,  // 18: audio_sep.AudioSepTaskService.GetAudioSepTaskWithStemsURLs:output_type -> audio_sep.GetAudioSepTaskWithStemsURLsResponse
-	9,  // 19: audio_sep.AudioSepTaskService.UploadStemsURLs:output_type -> audio_sep.UploadStemsURLsResponse
-	14, // 20: audio_sep.AudioSepTaskService.TryUpdate:output_type -> audio_sep.TryUpdateResponse
-	16, // [16:21] is the sub-list for method output_type
-	11, // [11:16] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	13, // 1: audio_sep.AudioSepTask.stems_urls:type_name -> audio_sep.AudioSepTask.StemsUrlsEntry
+	1,  // 2: audio_sep.PostAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
+	1,  // 3: audio_sep.GetAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
+	14, // 4: audio_sep.UploadStemsURLsResponse.stems_upload_urls:type_name -> audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
+	0,  // 5: audio_sep.TryUpdateRequest.status_from:type_name -> audio_sep.Status
+	0,  // 6: audio_sep.TryUpdateRequest.status_to:type_name -> audio_sep.Status
+	9,  // 7: audio_sep.TryUpdateRequest.processing_data:type_name -> audio_sep.ProcessingData
+	10, // 8: audio_sep.TryUpdateRequest.done_data:type_name -> audio_sep.DoneData
+	11, // 9: audio_sep.TryUpdateRequest.error_data:type_name -> audio_sep.ErrorData
+	2,  // 10: audio_sep.AudioSepTaskService.PostAudioSepTask:input_type -> audio_sep.PostAudioSepTaskRequest
+	4,  // 11: audio_sep.AudioSepTaskService.GetAudioSepTask:input_type -> audio_sep.GetAudioSepTaskRequest
+	6,  // 12: audio_sep.AudioSepTaskService.UploadStemsURLs:input_type -> audio_sep.UploadStemsURLsRequest
+	8,  // 13: audio_sep.AudioSepTaskService.TryUpdate:input_type -> audio_sep.TryUpdateRequest
+	3,  // 14: audio_sep.AudioSepTaskService.PostAudioSepTask:output_type -> audio_sep.PostAudioSepTaskResponse
+	5,  // 15: audio_sep.AudioSepTaskService.GetAudioSepTask:output_type -> audio_sep.GetAudioSepTaskResponse
+	7,  // 16: audio_sep.AudioSepTaskService.UploadStemsURLs:output_type -> audio_sep.UploadStemsURLsResponse
+	12, // 17: audio_sep.AudioSepTaskService.TryUpdate:output_type -> audio_sep.TryUpdateResponse
+	14, // [14:18] is the sub-list for method output_type
+	10, // [10:14] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_audio_separation_proto_init() }
@@ -966,7 +868,7 @@ func file_audio_separation_proto_init() {
 		return
 	}
 	file_audio_separation_proto_msgTypes[0].OneofWrappers = []any{}
-	file_audio_separation_proto_msgTypes[9].OneofWrappers = []any{
+	file_audio_separation_proto_msgTypes[7].OneofWrappers = []any{
 		(*TryUpdateRequest_ProcessingData)(nil),
 		(*TryUpdateRequest_DoneData)(nil),
 		(*TryUpdateRequest_ErrorData)(nil),
@@ -977,7 +879,7 @@ func file_audio_separation_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_audio_separation_proto_rawDesc), len(file_audio_separation_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   16,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

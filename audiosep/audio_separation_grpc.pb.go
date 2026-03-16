@@ -19,11 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AudioSepTaskService_PostAudioSepTask_FullMethodName             = "/audio_sep.AudioSepTaskService/PostAudioSepTask"
-	AudioSepTaskService_GetAudioSepTask_FullMethodName              = "/audio_sep.AudioSepTaskService/GetAudioSepTask"
-	AudioSepTaskService_GetAudioSepTaskWithStemsURLs_FullMethodName = "/audio_sep.AudioSepTaskService/GetAudioSepTaskWithStemsURLs"
-	AudioSepTaskService_UploadStemsURLs_FullMethodName              = "/audio_sep.AudioSepTaskService/UploadStemsURLs"
-	AudioSepTaskService_TryUpdate_FullMethodName                    = "/audio_sep.AudioSepTaskService/TryUpdate"
+	AudioSepTaskService_PostAudioSepTask_FullMethodName = "/audio_sep.AudioSepTaskService/PostAudioSepTask"
+	AudioSepTaskService_GetAudioSepTask_FullMethodName  = "/audio_sep.AudioSepTaskService/GetAudioSepTask"
+	AudioSepTaskService_UploadStemsURLs_FullMethodName  = "/audio_sep.AudioSepTaskService/UploadStemsURLs"
+	AudioSepTaskService_TryUpdate_FullMethodName        = "/audio_sep.AudioSepTaskService/TryUpdate"
 )
 
 // AudioSepTaskServiceClient is the client API for AudioSepTaskService service.
@@ -36,11 +35,8 @@ type AudioSepTaskServiceClient interface {
 	PostAudioSepTask(ctx context.Context, in *PostAudioSepTaskRequest, opts ...grpc.CallOption) (*PostAudioSepTaskResponse, error)
 	// GetAudioSepTask gets an audio separation task.
 	GetAudioSepTask(ctx context.Context, in *GetAudioSepTaskRequest, opts ...grpc.CallOption) (*GetAudioSepTaskResponse, error)
-	// GetAudioSepTaskWithStemsURLs gets an audio separation task with stems URLs.
-	GetAudioSepTaskWithStemsURLs(ctx context.Context, in *GetAudioSepTaskWithStemsURLsRequest, opts ...grpc.CallOption) (*GetAudioSepTaskWithStemsURLsResponse, error)
 	// UploadStemsURLs returns URLs for uploads stems.
 	UploadStemsURLs(ctx context.Context, in *UploadStemsURLsRequest, opts ...grpc.CallOption) (*UploadStemsURLsResponse, error)
-	// TrySetProcessing tries to set the task as processing.
 	// TryUpdate tries to update the task.
 	TryUpdate(ctx context.Context, in *TryUpdateRequest, opts ...grpc.CallOption) (*TryUpdateResponse, error)
 }
@@ -67,16 +63,6 @@ func (c *audioSepTaskServiceClient) GetAudioSepTask(ctx context.Context, in *Get
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAudioSepTaskResponse)
 	err := c.cc.Invoke(ctx, AudioSepTaskService_GetAudioSepTask_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *audioSepTaskServiceClient) GetAudioSepTaskWithStemsURLs(ctx context.Context, in *GetAudioSepTaskWithStemsURLsRequest, opts ...grpc.CallOption) (*GetAudioSepTaskWithStemsURLsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAudioSepTaskWithStemsURLsResponse)
-	err := c.cc.Invoke(ctx, AudioSepTaskService_GetAudioSepTaskWithStemsURLs_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -113,11 +99,8 @@ type AudioSepTaskServiceServer interface {
 	PostAudioSepTask(context.Context, *PostAudioSepTaskRequest) (*PostAudioSepTaskResponse, error)
 	// GetAudioSepTask gets an audio separation task.
 	GetAudioSepTask(context.Context, *GetAudioSepTaskRequest) (*GetAudioSepTaskResponse, error)
-	// GetAudioSepTaskWithStemsURLs gets an audio separation task with stems URLs.
-	GetAudioSepTaskWithStemsURLs(context.Context, *GetAudioSepTaskWithStemsURLsRequest) (*GetAudioSepTaskWithStemsURLsResponse, error)
 	// UploadStemsURLs returns URLs for uploads stems.
 	UploadStemsURLs(context.Context, *UploadStemsURLsRequest) (*UploadStemsURLsResponse, error)
-	// TrySetProcessing tries to set the task as processing.
 	// TryUpdate tries to update the task.
 	TryUpdate(context.Context, *TryUpdateRequest) (*TryUpdateResponse, error)
 	mustEmbedUnimplementedAudioSepTaskServiceServer()
@@ -135,9 +118,6 @@ func (UnimplementedAudioSepTaskServiceServer) PostAudioSepTask(context.Context, 
 }
 func (UnimplementedAudioSepTaskServiceServer) GetAudioSepTask(context.Context, *GetAudioSepTaskRequest) (*GetAudioSepTaskResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAudioSepTask not implemented")
-}
-func (UnimplementedAudioSepTaskServiceServer) GetAudioSepTaskWithStemsURLs(context.Context, *GetAudioSepTaskWithStemsURLsRequest) (*GetAudioSepTaskWithStemsURLsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAudioSepTaskWithStemsURLs not implemented")
 }
 func (UnimplementedAudioSepTaskServiceServer) UploadStemsURLs(context.Context, *UploadStemsURLsRequest) (*UploadStemsURLsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadStemsURLs not implemented")
@@ -202,24 +182,6 @@ func _AudioSepTaskService_GetAudioSepTask_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AudioSepTaskService_GetAudioSepTaskWithStemsURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAudioSepTaskWithStemsURLsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AudioSepTaskServiceServer).GetAudioSepTaskWithStemsURLs(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AudioSepTaskService_GetAudioSepTaskWithStemsURLs_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AudioSepTaskServiceServer).GetAudioSepTaskWithStemsURLs(ctx, req.(*GetAudioSepTaskWithStemsURLsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _AudioSepTaskService_UploadStemsURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UploadStemsURLsRequest)
 	if err := dec(in); err != nil {
@@ -270,10 +232,6 @@ var AudioSepTaskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAudioSepTask",
 			Handler:    _AudioSepTaskService_GetAudioSepTask_Handler,
-		},
-		{
-			MethodName: "GetAudioSepTaskWithStemsURLs",
-			Handler:    _AudioSepTaskService_GetAudioSepTaskWithStemsURLs_Handler,
 		},
 		{
 			MethodName: "UploadStemsURLs",
