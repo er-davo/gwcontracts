@@ -10,11 +10,8 @@ service AudioSepTaskService {
     rpc PostAudioSepTask(PostAudioSepTaskRequest) returns (PostAudioSepTaskResponse);
     // GetAudioSepTask gets an audio separation task.
     rpc GetAudioSepTask(GetAudioSepTaskRequest) returns (GetAudioSepTaskResponse);
-    // GetAudioSepTaskWithStemsURLs gets an audio separation task with stems URLs.
-    rpc GetAudioSepTaskWithStemsURLs(GetAudioSepTaskWithStemsURLsRequest) returns (GetAudioSepTaskWithStemsURLsResponse);
     // UploadStemsURLs returns URLs for uploads stems.
     rpc UploadStemsURLs(UploadStemsURLsRequest) returns (UploadStemsURLsResponse);
-    // TrySetProcessing tries to set the task as processing.
     // TryUpdate tries to update the task.
     rpc TryUpdate(TryUpdateRequest) returns (TryUpdateResponse);
 }
@@ -35,7 +32,9 @@ message AudioSepTask {
     string input_audio_name = 3;
     string separated_dir_name = 4;
 
-    optional string error_message = 5;
+    map<string, string> stems_urls = 5;
+
+    optional string error_message = 6;
 }
 
 message PostAudioSepTaskRequest {
@@ -54,15 +53,6 @@ message GetAudioSepTaskRequest {
 
 message GetAudioSepTaskResponse {
     AudioSepTask task = 1;
-}
-
-message GetAudioSepTaskWithStemsURLsRequest {
-    string id = 1;
-}
-
-message GetAudioSepTaskWithStemsURLsResponse {
-    AudioSepTask task = 1;
-    map<string, string> stems_urls = 2;
 }
 
 message UploadStemsURLsRequest {
