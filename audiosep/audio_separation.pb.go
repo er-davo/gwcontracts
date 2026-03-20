@@ -457,18 +457,14 @@ func (x *UploadStemsURLsResponse) GetStemsUploadUrls() map[string]string {
 }
 
 type TryUpdateRequest struct {
-	state      protoimpl.MessageState `protogen:"open.v1"`
-	Id         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	StatusFrom Status                 `protobuf:"varint,2,opt,name=status_from,json=statusFrom,proto3,enum=audio_sep.Status" json:"status_from,omitempty"`
-	StatusTo   Status                 `protobuf:"varint,3,opt,name=status_to,json=statusTo,proto3,enum=audio_sep.Status" json:"status_to,omitempty"`
-	// Types that are valid to be assigned to Payload:
-	//
-	//	*TryUpdateRequest_ProcessingData
-	//	*TryUpdateRequest_DoneData
-	//	*TryUpdateRequest_ErrorData
-	Payload       isTryUpdateRequest_Payload `protobuf_oneof:"payload"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Id               string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	StatusFrom       Status                 `protobuf:"varint,2,opt,name=status_from,json=statusFrom,proto3,enum=audio_sep.Status" json:"status_from,omitempty"`
+	StatusTo         Status                 `protobuf:"varint,3,opt,name=status_to,json=statusTo,proto3,enum=audio_sep.Status" json:"status_to,omitempty"`
+	SeparatedDirName *string                `protobuf:"bytes,4,opt,name=separated_dir_name,json=separatedDirName,proto3,oneof" json:"separated_dir_name,omitempty"`
+	ErrorMessage     *string                `protobuf:"bytes,5,opt,name=error_message,json=errorMessage,proto3,oneof" json:"error_message,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
 }
 
 func (x *TryUpdateRequest) Reset() {
@@ -522,182 +518,16 @@ func (x *TryUpdateRequest) GetStatusTo() Status {
 	return Status_CREATED
 }
 
-func (x *TryUpdateRequest) GetPayload() isTryUpdateRequest_Payload {
-	if x != nil {
-		return x.Payload
-	}
-	return nil
-}
-
-func (x *TryUpdateRequest) GetProcessingData() *ProcessingData {
-	if x != nil {
-		if x, ok := x.Payload.(*TryUpdateRequest_ProcessingData); ok {
-			return x.ProcessingData
-		}
-	}
-	return nil
-}
-
-func (x *TryUpdateRequest) GetDoneData() *DoneData {
-	if x != nil {
-		if x, ok := x.Payload.(*TryUpdateRequest_DoneData); ok {
-			return x.DoneData
-		}
-	}
-	return nil
-}
-
-func (x *TryUpdateRequest) GetErrorData() *ErrorData {
-	if x != nil {
-		if x, ok := x.Payload.(*TryUpdateRequest_ErrorData); ok {
-			return x.ErrorData
-		}
-	}
-	return nil
-}
-
-type isTryUpdateRequest_Payload interface {
-	isTryUpdateRequest_Payload()
-}
-
-type TryUpdateRequest_ProcessingData struct {
-	ProcessingData *ProcessingData `protobuf:"bytes,4,opt,name=processing_data,json=processingData,proto3,oneof"`
-}
-
-type TryUpdateRequest_DoneData struct {
-	DoneData *DoneData `protobuf:"bytes,5,opt,name=done_data,json=doneData,proto3,oneof"`
-}
-
-type TryUpdateRequest_ErrorData struct {
-	ErrorData *ErrorData `protobuf:"bytes,6,opt,name=error_data,json=errorData,proto3,oneof"`
-}
-
-func (*TryUpdateRequest_ProcessingData) isTryUpdateRequest_Payload() {}
-
-func (*TryUpdateRequest_DoneData) isTryUpdateRequest_Payload() {}
-
-func (*TryUpdateRequest_ErrorData) isTryUpdateRequest_Payload() {}
-
-type ProcessingData struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ProcessingData) Reset() {
-	*x = ProcessingData{}
-	mi := &file_audio_separation_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ProcessingData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProcessingData) ProtoMessage() {}
-
-func (x *ProcessingData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProcessingData.ProtoReflect.Descriptor instead.
-func (*ProcessingData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{8}
-}
-
-type DoneData struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	SeparatedDirName string                 `protobuf:"bytes,1,opt,name=separated_dir_name,json=separatedDirName,proto3" json:"separated_dir_name,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
-}
-
-func (x *DoneData) Reset() {
-	*x = DoneData{}
-	mi := &file_audio_separation_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DoneData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DoneData) ProtoMessage() {}
-
-func (x *DoneData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DoneData.ProtoReflect.Descriptor instead.
-func (*DoneData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *DoneData) GetSeparatedDirName() string {
-	if x != nil {
-		return x.SeparatedDirName
+func (x *TryUpdateRequest) GetSeparatedDirName() string {
+	if x != nil && x.SeparatedDirName != nil {
+		return *x.SeparatedDirName
 	}
 	return ""
 }
 
-type ErrorData struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ErrorMessage  string                 `protobuf:"bytes,1,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ErrorData) Reset() {
-	*x = ErrorData{}
-	mi := &file_audio_separation_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ErrorData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ErrorData) ProtoMessage() {}
-
-func (x *ErrorData) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ErrorData.ProtoReflect.Descriptor instead.
-func (*ErrorData) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *ErrorData) GetErrorMessage() string {
-	if x != nil {
-		return x.ErrorMessage
+func (x *TryUpdateRequest) GetErrorMessage() string {
+	if x != nil && x.ErrorMessage != nil {
+		return *x.ErrorMessage
 	}
 	return ""
 }
@@ -711,7 +541,7 @@ type TryUpdateResponse struct {
 
 func (x *TryUpdateResponse) Reset() {
 	*x = TryUpdateResponse{}
-	mi := &file_audio_separation_proto_msgTypes[11]
+	mi := &file_audio_separation_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -723,7 +553,7 @@ func (x *TryUpdateResponse) String() string {
 func (*TryUpdateResponse) ProtoMessage() {}
 
 func (x *TryUpdateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_audio_separation_proto_msgTypes[11]
+	mi := &file_audio_separation_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -736,7 +566,7 @@ func (x *TryUpdateResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TryUpdateResponse.ProtoReflect.Descriptor instead.
 func (*TryUpdateResponse) Descriptor() ([]byte, []int) {
-	return file_audio_separation_proto_rawDescGZIP(), []int{11}
+	return file_audio_separation_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *TryUpdateResponse) GetSuccess() bool {
@@ -782,22 +612,16 @@ const file_audio_separation_proto_rawDesc = "" +
 	"\x11stems_upload_urls\x18\x01 \x03(\v27.audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntryR\x0fstemsUploadUrls\x1aB\n" +
 	"\x14StemsUploadUrlsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\xc2\x02\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x8c\x02\n" +
 	"\x10TryUpdateRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x122\n" +
 	"\vstatus_from\x18\x02 \x01(\x0e2\x11.audio_sep.StatusR\n" +
 	"statusFrom\x12.\n" +
-	"\tstatus_to\x18\x03 \x01(\x0e2\x11.audio_sep.StatusR\bstatusTo\x12D\n" +
-	"\x0fprocessing_data\x18\x04 \x01(\v2\x19.audio_sep.ProcessingDataH\x00R\x0eprocessingData\x122\n" +
-	"\tdone_data\x18\x05 \x01(\v2\x13.audio_sep.DoneDataH\x00R\bdoneData\x125\n" +
-	"\n" +
-	"error_data\x18\x06 \x01(\v2\x14.audio_sep.ErrorDataH\x00R\terrorDataB\t\n" +
-	"\apayload\"\x10\n" +
-	"\x0eProcessingData\"8\n" +
-	"\bDoneData\x12,\n" +
-	"\x12separated_dir_name\x18\x01 \x01(\tR\x10separatedDirName\"0\n" +
-	"\tErrorData\x12#\n" +
-	"\rerror_message\x18\x01 \x01(\tR\ferrorMessage\"-\n" +
+	"\tstatus_to\x18\x03 \x01(\x0e2\x11.audio_sep.StatusR\bstatusTo\x121\n" +
+	"\x12separated_dir_name\x18\x04 \x01(\tH\x00R\x10separatedDirName\x88\x01\x01\x12(\n" +
+	"\rerror_message\x18\x05 \x01(\tH\x01R\ferrorMessage\x88\x01\x01B\x15\n" +
+	"\x13_separated_dir_nameB\x10\n" +
+	"\x0e_error_message\"-\n" +
 	"\x11TryUpdateResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess*H\n" +
 	"\x06Status\x12\v\n" +
@@ -827,7 +651,7 @@ func file_audio_separation_proto_rawDescGZIP() []byte {
 }
 
 var file_audio_separation_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_audio_separation_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_audio_separation_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_audio_separation_proto_goTypes = []any{
 	(Status)(0),                      // 0: audio_sep.Status
 	(*AudioSepTask)(nil),             // 1: audio_sep.AudioSepTask
@@ -838,37 +662,31 @@ var file_audio_separation_proto_goTypes = []any{
 	(*UploadStemsURLsRequest)(nil),   // 6: audio_sep.UploadStemsURLsRequest
 	(*UploadStemsURLsResponse)(nil),  // 7: audio_sep.UploadStemsURLsResponse
 	(*TryUpdateRequest)(nil),         // 8: audio_sep.TryUpdateRequest
-	(*ProcessingData)(nil),           // 9: audio_sep.ProcessingData
-	(*DoneData)(nil),                 // 10: audio_sep.DoneData
-	(*ErrorData)(nil),                // 11: audio_sep.ErrorData
-	(*TryUpdateResponse)(nil),        // 12: audio_sep.TryUpdateResponse
-	nil,                              // 13: audio_sep.AudioSepTask.StemsUrlsEntry
-	nil,                              // 14: audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
+	(*TryUpdateResponse)(nil),        // 9: audio_sep.TryUpdateResponse
+	nil,                              // 10: audio_sep.AudioSepTask.StemsUrlsEntry
+	nil,                              // 11: audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
 }
 var file_audio_separation_proto_depIdxs = []int32{
 	0,  // 0: audio_sep.AudioSepTask.status:type_name -> audio_sep.Status
-	13, // 1: audio_sep.AudioSepTask.stems_urls:type_name -> audio_sep.AudioSepTask.StemsUrlsEntry
+	10, // 1: audio_sep.AudioSepTask.stems_urls:type_name -> audio_sep.AudioSepTask.StemsUrlsEntry
 	1,  // 2: audio_sep.PostAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
 	1,  // 3: audio_sep.GetAudioSepTaskResponse.task:type_name -> audio_sep.AudioSepTask
-	14, // 4: audio_sep.UploadStemsURLsResponse.stems_upload_urls:type_name -> audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
+	11, // 4: audio_sep.UploadStemsURLsResponse.stems_upload_urls:type_name -> audio_sep.UploadStemsURLsResponse.StemsUploadUrlsEntry
 	0,  // 5: audio_sep.TryUpdateRequest.status_from:type_name -> audio_sep.Status
 	0,  // 6: audio_sep.TryUpdateRequest.status_to:type_name -> audio_sep.Status
-	9,  // 7: audio_sep.TryUpdateRequest.processing_data:type_name -> audio_sep.ProcessingData
-	10, // 8: audio_sep.TryUpdateRequest.done_data:type_name -> audio_sep.DoneData
-	11, // 9: audio_sep.TryUpdateRequest.error_data:type_name -> audio_sep.ErrorData
-	2,  // 10: audio_sep.AudioSepTaskService.PostAudioSepTask:input_type -> audio_sep.PostAudioSepTaskRequest
-	4,  // 11: audio_sep.AudioSepTaskService.GetAudioSepTask:input_type -> audio_sep.GetAudioSepTaskRequest
-	6,  // 12: audio_sep.AudioSepTaskService.UploadStemsURLs:input_type -> audio_sep.UploadStemsURLsRequest
-	8,  // 13: audio_sep.AudioSepTaskService.TryUpdate:input_type -> audio_sep.TryUpdateRequest
-	3,  // 14: audio_sep.AudioSepTaskService.PostAudioSepTask:output_type -> audio_sep.PostAudioSepTaskResponse
-	5,  // 15: audio_sep.AudioSepTaskService.GetAudioSepTask:output_type -> audio_sep.GetAudioSepTaskResponse
-	7,  // 16: audio_sep.AudioSepTaskService.UploadStemsURLs:output_type -> audio_sep.UploadStemsURLsResponse
-	12, // 17: audio_sep.AudioSepTaskService.TryUpdate:output_type -> audio_sep.TryUpdateResponse
-	14, // [14:18] is the sub-list for method output_type
-	10, // [10:14] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	2,  // 7: audio_sep.AudioSepTaskService.PostAudioSepTask:input_type -> audio_sep.PostAudioSepTaskRequest
+	4,  // 8: audio_sep.AudioSepTaskService.GetAudioSepTask:input_type -> audio_sep.GetAudioSepTaskRequest
+	6,  // 9: audio_sep.AudioSepTaskService.UploadStemsURLs:input_type -> audio_sep.UploadStemsURLsRequest
+	8,  // 10: audio_sep.AudioSepTaskService.TryUpdate:input_type -> audio_sep.TryUpdateRequest
+	3,  // 11: audio_sep.AudioSepTaskService.PostAudioSepTask:output_type -> audio_sep.PostAudioSepTaskResponse
+	5,  // 12: audio_sep.AudioSepTaskService.GetAudioSepTask:output_type -> audio_sep.GetAudioSepTaskResponse
+	7,  // 13: audio_sep.AudioSepTaskService.UploadStemsURLs:output_type -> audio_sep.UploadStemsURLsResponse
+	9,  // 14: audio_sep.AudioSepTaskService.TryUpdate:output_type -> audio_sep.TryUpdateResponse
+	11, // [11:15] is the sub-list for method output_type
+	7,  // [7:11] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_audio_separation_proto_init() }
@@ -877,18 +695,14 @@ func file_audio_separation_proto_init() {
 		return
 	}
 	file_audio_separation_proto_msgTypes[0].OneofWrappers = []any{}
-	file_audio_separation_proto_msgTypes[7].OneofWrappers = []any{
-		(*TryUpdateRequest_ProcessingData)(nil),
-		(*TryUpdateRequest_DoneData)(nil),
-		(*TryUpdateRequest_ErrorData)(nil),
-	}
+	file_audio_separation_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_audio_separation_proto_rawDesc), len(file_audio_separation_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   14,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
