@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package tabgen;
+
+option go_package = "/tabgen";
+
+// TabGenTaskService is a service for generating tablature tasks.
+service TabGenTaskService {
+    // Creates tab generation task and posts it to queue broker. Returns task id.
+    rpc PostTabGenTask(PostTabGenTaskRequest) returns (PostTabGenTaskResponse);
+    // Returns tab generation task by id. If tab is ready, returns tab URL.
+    rpc GetTabGenTask(GetTabGenTaskRequest) returns (GetTabGenTaskResponse);
+    // Saves generated tab to storage
+    rpc SaveTab(SaveTabRequest) returns (SaveTabResponse);
+    // Try to update task status
+    rpc TryUpdate(TryUpdateRequest) returns (TryUpdateResponse);
+    // Return presigned URL for audio source
+    rpc GetAudioSourceURL(GetAudioSourceURLRequest) returns (GetAudioSourceURLResponse);
+    // Uploads tab to storage
+    rpc UploadTab(UploadTabRequest) returns (UploadTabResponse);
+}
+
+enum Status {
+    CREATED = 0;
+    PENDING = 1;
+    WAITING_FOR_SEPARATION = 2;
+    PROCESSING = 3;
+    DONE = 4;
+    FAILED = 5;
+}
+
+message TabGenTask {
+    string id = 1;
+    optional string audio_sep_task_id = 2;
+
+    Status status = 3;
+
+    string input_audio_name = 4;
+    optional string result_tab_name = 5;
+
+    bool saved = 6;
+    optional string error_message = 7;
+}
+
+message File {
+    string name = 1;
+    bytes data = 2;
+    int64 size = 3;
+}
+
+message PostTabGenTaskRequest {
+    File audio = 1;
+}
+
+message PostTabGenTaskResponse {
+    TabGenTask task = 1;
+}
+
+message GetTabGenTaskRequest {
+    string id = 1;
+}
+
+message GetTabGenTaskResponse {
+    TabGenTask task = 1;
+    optional string tab_url = 2;
+}
+
+message SaveTabRequest {
+    string id = 1;
+    string name = 2;
+}
+
+message SaveTabResponse {
+
+}
+
+message TryUpdateRequest {
+    string id = 1;
+    repeated Status froms = 2;
+    Status to = 3;
+    optional string result_tab_name = 4;
+    optional string error_message = 5;
+}
+
+message TryUpdateResponse {
+    bool success = 1;
+}
+
+message GetAudioSourceURLRequest {
+    string id = 1;
+}
+
+message GetAudioSourceURLResponse {
+    string url = 1;
+}
+
+message UploadTabRequest {
+    string id = 1;
+    File tab = 2;
+}
+
+message UploadTabResponse {
+
+}

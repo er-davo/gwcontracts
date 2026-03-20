@@ -11,3 +11,8 @@ audio-sep:
 	protoc --go_out=. \
 	--go-grpc_out=. \
 	-Iproto $(PROTO_DIR)/audio_separation.proto
+
+tabgen:
+	protoc --go_out=. \
+	--go-grpc_out=. \
+	-Iproto $(PROTO_DIR)/tab_generation.proto
