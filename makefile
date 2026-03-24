@@ -1,4 +1,4 @@
-.PHONY: tab
+.PHONY: tab audio-sep tabgen
 
 PROTO_DIR=proto
 

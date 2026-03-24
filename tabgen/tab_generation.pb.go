@@ -234,6 +234,7 @@ func (x *File) GetSize() int64 {
 type PostTabGenTaskRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Audio         *File                  `protobuf:"bytes,1,opt,name=audio,proto3" json:"audio,omitempty"`
+	Separation    bool                   `protobuf:"varint,2,opt,name=separation,proto3" json:"separation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -273,6 +274,13 @@ func (x *PostTabGenTaskRequest) GetAudio() *File {
 		return x.Audio
 	}
 	return nil
+}
+
+func (x *PostTabGenTaskRequest) GetSeparation() bool {
+	if x != nil {
+		return x.Separation
+	}
+	return false
 }
 
 type PostTabGenTaskResponse struct {
@@ -819,9 +827,12 @@ const file_tab_generation_proto_rawDesc = "" +
 	"\x04File\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
 	"\x04data\x18\x02 \x01(\fR\x04data\x12\x12\n" +
-	"\x04size\x18\x03 \x01(\x03R\x04size\";\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size\"[\n" +
 	"\x15PostTabGenTaskRequest\x12\"\n" +
-	"\x05audio\x18\x01 \x01(\v2\f.tabgen.FileR\x05audio\"@\n" +
+	"\x05audio\x18\x01 \x01(\v2\f.tabgen.FileR\x05audio\x12\x1e\n" +
+	"\n" +
+	"separation\x18\x02 \x01(\bR\n" +
+	"separation\"@\n" +
 	"\x16PostTabGenTaskResponse\x12&\n" +
 	"\x04task\x18\x01 \x01(\v2\x12.tabgen.TabGenTaskR\x04task\"&\n" +
 	"\x14GetTabGenTaskRequest\x12\x0e\n" +

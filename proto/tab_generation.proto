@@ -50,6 +50,7 @@ message File {
 
 message PostTabGenTaskRequest {
     File audio = 1;
+    bool separation = 2;
 }
 
 message PostTabGenTaskResponse {
